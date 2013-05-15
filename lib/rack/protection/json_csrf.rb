@@ -18,7 +18,7 @@ module Rack
         status, headers, body = app.call(env)
 
         if has_vector? request, headers
-          warn env, "attack prevented by #{self.class}"
+          warn env, "attack prevented by #{self.class}. referrer=#{referrer(request.env)}, request.host=#{request.host}"
           react(env) or [status, headers, body]
         else
           [status, headers, body]
